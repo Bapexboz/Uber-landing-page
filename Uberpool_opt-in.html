@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+%%[
+
+
+SET @city_id = QUERYPARAMETER("cid")
+
+VAR @loc1, @loc2, @currency, @fare1, @fare2
+SET @fare1 = LOOKUP("city_price_lookup","fare1","cid",@city_id)
+SET @loc1 = LOOKUP("city_price_lookup","loc1","cid",@city_id)
+SET @loc2 = LOOKUP("city_price_lookup","loc2","cid",@city_id)
+SET @com1 = LOOKUP("city_price_lookup","com1","cid",@city_id)   
+
+IF @city_id == '91' 
+THEN SET @support_email = 'supportbeijing@uber.com'
+	 SET @city_name = '北京'
+     SET @weibo = '@Uber优歩北京'
+     SET @weibo_link = 'http://weibo.com/uberbeijing'
+ELSEIF @city_id == '463' 
+THEN SET @support_email = 'support.tianjin@uber.com'
+	 SET @city_name = '天津'
+     SET @weibo = '@Uber优步天津'
+     SET @weibo_link = 'http://weibo.com/UBERTIANJIN'
+ELSEIF @city_id == '469'
+THEN SET @support_email = 'supportnanjing@uber.com'
+     SET @city_name = '南京'
+     SET @weibo = '@Uber南京'
+     SET @weibo_link = 'http://weibo.com/u/5545629681'
+ELSEIF @city_id == '482' 
+THEN SET @support_email = 'supportchongqing@uber.com'
+     SET @city_name = '重庆'
+     SET @weibo = '@Uber优步重庆'
+     SET @weibo_link = 'http://weibo.com/ubercq'
+ELSEIF @city_id == '195' 
+THEN SET @support_email = 'supportsz@uber.com'
+     SET @city_name = '深圳'
+     SET @weibo = '@Uber优步深圳'
+     SET @weibo_link = 'http://weibo.com/ubershenzhen'
+ELSEIF @city_id == '485' 
+THEN SET @support_email = 'supportchengdu@uber.com'
+     SET @city_name = '成都'
+     SET @weibo = '@Uber成都'
+     SET @weibo_link = 'http://weibo.com/u/5267745066'
+ELSEIF @city_id == '194'
+THEN SET @support_email = 'supportgz@uber.com'
+     SET @city_name = '广州'
+     SET @weibo = '@Uber优步_广州'
+     SET @weibo_link = 'http://weibo.com/UberGuangzhou'
+ELSEIF @city_id == '642'
+THEN SET @support_email = 'partners.changsha@uber.com'
+     SET @city_name = '长沙'
+     SET @weibo = '@Uber优步_长沙'
+     SET @weibo_link = 'http://weibo.com/uberinchangsha'
+ELSEIF @city_id == '624'
+THEN SET @support_email = 'support.suzhou@uber.com'
+     SET @city_name = '苏州'
+     SET @weibo = '@Uber优步_苏州'
+     SET @weibo_link = 'http://weibo.com/ubersuzhou'
+ELSEIF @city_id == '662'
+THEN SET @support_email = 'supportfoshan@uber.com'
+     SET @city_name = '佛山'
+     SET @weibo = '@Uber优步佛山'
+     SET @weibo_link = 'hhttp://weibo.com/u/5619611350'
+ELSEIF @city_id == '96'
+THEN SET @support_email = 'supportshanghai@uber.com'
+     SET @city_name = '上海'
+     SET @weibo = '@Uber上海'
+     SET @weibo_link = 'http://weibo.com/ubershanghai'
+ELSEIF @city_id == '602'
+THEN SET @support_email = 'support.qingdao@uber.com'
+     SET @city_name = '青岛'
+     SET @weibo = '@Uber优步_青岛'
+     SET @weibo_link = 'http://weibo.com/u/5604969985'
+ELSEIF @city_id == '484'
+THEN SET @support_email = 'supporthangzhou@uber.com'
+     SET @city_name = '杭州'
+     SET @weibo = '@Uber优步杭州'
+     SET @weibo_link = 'http://weibo.com/u/5251715678'
+ELSEIF @city_id == '644'
+THEN SET @support_email = 'support.xian@uber.com'
+     SET @city_name = '西安'
+     SET @weibo = '@Uber优步_西安'
+     SET @weibo_link = 'http://weibo.com/u/5611587821'
+ELSEIF @city_id == '483'
+THEN SET @support_email = 'supportwuhan@uber.com'
+     SET @city_name = '武汉'
+     SET @weibo = '@Uber优步武汉'
+     SET @weibo_link = 'http://weibo.com/uberwuhan'
+ELSEIF @city_id == '647'
+THEN SET @support_email = 'support.jinan@uber.com'
+     SET @city_name = '济南'
+     SET @weibo = '@Uber_优步济南'
+     SET @weibo_link = 'http://weibo.com/jinanuber'
+ELSEIF @city_id == '645'
+THEN SET @support_email = 'support.xiamen@uber.com'
+     SET @city_name = '厦门'
+     SET @weibo = '@Uber_优步厦门'
+     SET @weibo_link = 'http://weibo.com/uberxiamen'
+ELSEIF @city_id == '646'
+THEN SET @support_email = 'support.dalian@uber.com'
+     SET @city_name = '大连'
+     SET @weibo = '@UBER优步-大连'
+     SET @weibo_link = 'http://weibo.com/uberdalian'
+ELSEIF @city_id == '643'
+THEN SET @support_email = 'support.yantai@uber.com'
+     SET @city_name = '青岛'
+     SET @weibo = '@Uber优步_青岛'
+     SET @weibo_link = 'http://weibo.com/u/5604969985'
+ELSEIF @city_id == '911'
+THEN SET @support_email = 'support.hefei@uber.com'
+     SET @city_name = '合肥'
+     SET @weibo = '@UBER优步-合肥'
+     SET @weibo_link = 'http://weibo.com/u/5693698785'
+ELSEIF @city_id == '648'
+THEN SET @support_email = 'support.ningbo@uber.com'
+     SET @city_name = '宁波'
+     SET @weibo = '@UBER优步宁波'
+     SET @weibo_link = 'http://weibo.com/uberningbo'
+ELSE THEN SET @support_email = 'support@uber.com'
+     SET @city_name = ''
+     SET @weibo = '@UBER优步'
+     SET @weibo_link = 'http://weibo.com/uberchina'
+ENDIF
+SET @citylink = 'https://www.uber.com.cn/fare-estimate/'
+]%%
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width">
+<!--[if !mso]><!-- --><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--<![endif]-->
+<title>Uber</title>
+<style type="text/css">
+  .appleLinksBlack a {color: #000000 !important; text-decoration: none;}
+  .appleLinksGray a {color: #9d9da3 !important; text-decoration: none;}
+  .footerApple a {color: #c0c0c8 !important; text-decoration: none;}
+
+
+/*CUSTOM WEB FONTS/////////////////////////////////*/
+@media screen {
+   @font-face {
+     font-family: 'ClanPro-Book';
+     src: url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-Book.woff') format('woff'), 
+     url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-Book.ttf') format('truetype');
+     font-weight: normal !important;
+     font-style: normal !important;
+     mso-font-alt: 'Arial';
+   }
+   @font-face {
+    font-family: 'ClanPro-Medium';
+    src: url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-Medium.woff') format('woff'),  url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-Medium.ttf') format('truetype');
+    font-weight: normal !important;
+    font-style: normal !important;
+    mso-font-alt: 'Arial';
+    }
+   @font-face {
+    font-family: 'ClanPro-WideNews';
+    src: url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-WideNews.woff') format('woff'),  url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-WideNews.ttf') format('truetype');
+    font-weight: normal !important;
+    font-style: normal !important;
+    mso-font-alt: 'Arial';
+    } 
+   @font-face {
+     font-family: 'ClanPro-News';
+     src: url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-News.woff') format('woff'), 
+     url('https://uber-static.s3.amazonaws.com/emails/2015/06/ClanPro-News.ttf') format('truetype');
+     font-weight: normal !important;
+     font-style: normal !important;
+     mso-font-alt: 'Arial';
+   }
+ }
+ /* Close custom web fonts ///////////////////////*/
+ @media screen and (-webkit-min-device-pixel-ratio:0) {
+    .h1 {
+    font-size: 30px !important; line-height: 37px !important;
+    }
+    .h2 {
+    font-size: 22px !important; line-height: 26px !important;
+    }
+    .h3 {
+    font-size: 16px !important; line-height: 20px !important;
+    }
+    .h4 {
+    font-size: 13px !important; line-height: 16px !important;
+    }
+    .hero-text2 {
+    font-size:45px !important; 
+    line-height: 60px !important;
+    }
+}
+@media screen and (max-width: 784px) {
+    .white-description {
+    width:100% !important;
+    max-width:380px !important
+    }
+    .padding-clear {
+    padding-left:10px !important;
+    padding-right: 10px !important;  
+    }
+}
+@media screen and (max-width: 681px) {
+    .tcenter {
+    text-align: center !important; 
+    }
+}
+@media screen and (min-width: 801px) {
+  .container {
+    /*width: 800px!important;*/
+  }
+}
+@media screen and (max-width: 480px) {
+    .sidepadding {
+    padding: 0 15px !important;  
+    }
+    .mod-padding {
+    padding: 0 10px 25px !important; 
+    }
+    .hero-text1 {
+    font-size:18px !important; 
+    }
+    .hero-text2 {
+    font-size:38px !important; 
+    line-height: 44px !important;
+    }
+    .full {
+    width:100% !important; 
+    }
+    .hauto {
+    height:auto !important;  
+    }
+    .block {
+    display: block !important; 
+    }
+    .test {
+    min-width: none !important;
+    }
+    .pt20 {
+    padding-top:10px !important;
+    }
+    .highlights {
+    font-size:22px !important; 
+    }
+}
+/*footer styles*/
+@media screen and (max-width: 679px) {
+  .ftr_left{
+    /*background-color:#00f;*/
+    width:100% !important;
+  }
+  .ftr_right{
+    /*background-color:#0f0;*/
+    width:100% !important;
+  }
+  .fcenter{
+    text-align: center !important;
+    padding:0 !important;
+  }
+  
+} 
+a[x-apple-data-detectors] {
+    color: inherit !important;
+    text-decoration: none !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+}  
+</style>
+</head>
+
+
+    
+<body style="background-color:#09091a; margin:0; padding:0;">
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+      <tr>
+          <td align="center" style="background-color:#09091a; margin:0; padding:0;">
+
+              <table  width="100%" cellpadding="0" cellspacing="0" class="container" border="0">
+                  <!--logo section 2x -->
+                  <tr>
+                      <td style="text-align: center; vertical-align: top; font-size: 0; padding: 27px 0;" >
+                          <img src="https://uber-static.s3.amazonaws.com/emails/2015/11/rider_drip/uber_whitelogo_2x_312x48.png" style="width:156px;height:24px;font-family:Helvetica,Arial,sans-serif;color:#000000;font-size:16px;font-weight:bold;" alt="UBER" width="156" height="24" class="logo"/>
+                      </td>
+                  </tr>
+     
+                 
+                  <!--logo section 2x -->
+
+                  <!--body -->
+                  <tr>
+                      <td style="background-color:#151525;">
+                          <table border="0" cellpadding="0" cellspacing="0" style="width:100%; background-color:#151525; table-layout: fixed;">
+                              <tr>
+                                  <td style="padding:0;margin:0; background-color:#ffffff;" align="center" >
+                                          <!--BEGIN MODULES -->
+                                              <!-- hero -->
+                                              <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="padding-top:42px; padding-bottom:48px; background-color:#222231;">
+                                                  <tr>
+                                                      <td style="color:#ffffff;">
+                                                          <table cellpadding="0" cellspacing="0" width="100%" border="0"  align="center">
+                                                              <tr>
+                                                                  <td valign="top" style="padding:0 0px;">
+                                                  <!-- hero module -->
+                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                                                      <tr>
+                                                        <td style="" align="center">
+                                                          <!--[if (gte mso 9)|(IE)]>
+                                                          <table width="550" align="center" cellpadding="0" cellspacing="0" border="0">
+                                                          <tr>
+                                                          <td width="550">
+                                                          <![endif]-->
+                                                          <div style="max-width:550px; display: inline-block; vertical-align: top; padding:0; margin:0;">
+                                                            <table cellpadding="0" cellspacing="0" border="0">
+                                                              <tr>
+                                                                <td style="padding:0 15px;">
+                                                                  <!--[if (gte mso 9)|(IE)]>
+                                                                  <table width="400" align="center" cellpadding="0" cellspacing="0" border="0">
+                                                                  <tr>
+                                                                  <td width="400">
+                                                                  <![endif]-->
+                                                                    <table style="max-width:400px;" cellpadding="0" cellspacing="0" border="0">
+                                                                      <tr>
+                                                                        <td style="font-family:'ClanPro-Book','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 30px; line-height: 36px; padding-bottom:20px; text-align:center; color:#ffffff; ">%%=v(@com1)=%%拼车低至%%=v(@fare1)=%%, 经济出行</td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                        <td style="font-family: 'Helvetica Neue', 'Helvetica Neue Light', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 16px; line-height: 22px; padding:0; text-align:center; color:#ffffff;">向您介绍人民优步+ 拼车出行服务, 您能和行程路线接近的乘客拼车分担车费，最低可享%%=v(@discount1)=%%折。</td>
+                                                                      </tr>
+         <tr><td align="center" style="padding-top:20px;">    <!-- CTA -->
+                                                                            <div><!--[if mso]>
+                                                                              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:45px;v-text-anchor:middle;width:210px;" arcsize="14%" strokecolor="#1fbad6" fillcolor="#1fbad6">
+                                                                                <w:anchorlock/>
+                                                                                <center style="color:#ffffff;font-family: 'ClanPro-Book', HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Regular', Arial, sans-serif;font-size:13px;font-weight:bold; text-transformation:uppercase;">GET A FARE ESTIMATE</center>
+                                                                              </v:roundrect>
+                                                                            <![endif]--><a href="http://get.uber.com.cn/open_app"
+                                                                            style="background-color:#1fbad6;border:1px solid #1fbad6;border-radius:4px;color:#ffffff;display:inline-block;font-family: 'ClanPro-Book', HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Regular', Arial, sans-serif;font-size:15px;font-weight:bold;line-height:45px;text-align:center;text-decoration:none;width:210px;-webkit-text-size-adjust:none;mso-hide:all; text-transform: uppercase;">一键呼叫 Uber</a></div>
+                                                                            <!-- END CTA --></td></tr>                                                           </table>                                                                  
+                                                                  <!--[if (gte mso 9)|(IE)]>
+                                                                  </td>
+                                                                  </tr>
+                                                                  </table>
+                                                                  <![endif]-->
+                                                                </td>
+                                                              </tr>
+                                                            </table>
+                                                          </div>
+                                                          <!--[if (gte mso 9)|(IE)]>
+                                                          </td>
+                                                          </tr>
+                                                          </table>
+                                                          <![endif]-->
+                                                        </td>
+                                                      </tr>
+                                                    </table>
+                                                  <!-- END hero module -->
+                                                                  </td>
+                                                              </tr>
+                                                          </table>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                              <!-- END hero -->
+
+                                        <!-- secondary RTL -->
+                                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="background-color:#ffffff;">
+                                          <tr>
+                                            <td style="color:#000000; padding-top:48px; padding-bottom:20px; background-color:#ffffff;">
+                                                  <!-- body module -->
+                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center">
+                                                      <tr>
+                                                        <td style="" align="center">
+                                                          <!--[if (gte mso 9)|(IE)]>
+                                                          <table width="=396" align="center" cellpadding="0" cellspacing="0" border="0">
+                                                          <tr>
+                                                          <td width="396">
+                                                          <![endif]-->
+                                                          <div style="max-width:396px; display: inline-block; vertical-align: top; padding:0; margin:0;">
+                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                              <tr>
+                                                                <td style="padding-left:23px; padding-right:23px;">
+                                                                    <table cellpadding="0" cellspacing="0" border="0">
+                                                                      <tr>
+                                                                        <td style="padding-top:0px; padding-bottom:8px; border-bottom:1px solid #3dc3db;">
+                                                                          <table cellpadding="0" cellspacing="0" border="0">
+                                                                            <tr>
+                                                                              <td width="283" style="font-family: 'ClanPro-News', HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Regular', Arial, sans-serif; font-size: 16px; line-height: 22px; color:#000000; padding:0; text-transform:uppercase; text-align:left; ">费用估算</td>
+                                                                              <td style="font-family: 'ClanPro-News', HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Regular', Arial, sans-serif; font-size: 16px; line-height: 22px; color:#000000; padding:0;  text-align:left;">人民优步</td>
+                                                                            </tr>
+                                                                          </table>
+                                                                        </td>
+                                                                      </tr>
+
+
+                                                                      <tr>
+                                                                        <td style="padding-top:0px; padding-bottom:26px; border-bottom:1px solid #e6e6e8; color:#000000;">
+
+                                                                            <!-- city 1-2 Table -->
+                                                                             <table cellpadding="0" cellspacing="0" border="0">
+                                                                              <tr>
+                                                                                <td width="3" bgcolor="#ffffff" style="font-size:1; line-height:1; background-color:#ffffff;" valign="top"><img src="https://uber-static.s3.amazonaws.com/emails/2015/11/rider_drip/dota1.gif" style="display:block;" width="3" height="18"></td>
+                                                                                <td width="2" bgcolor="#d9d9de" style="font-size:1; line-height:1; background-color:#d9d9de" valign="top">
+                                                                                  <img src="https://uber-static.s3.amazonaws.com/emails/2015/11/rider_drip/dota2.gif" style="display:block;" width="2" height="18"></td>
+                                                                                <td width="3" bgcolor="#ffffff" style="font-size:1; line-height:1; background-color:#ffffff;" valign="top"><img src="https://uber-static.s3.amazonaws.com/emails/2015/11/rider_drip/dota3.gif" style="display:block;" width="3" height="18"></td>
+                                                                                
+
+                                                                                <td width="255"  style="font-family: 'ClanPro-Book','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 16px; line-height: 22px; padding: 0 10px 20px; color:#000000;  text-align:left;" valign="top">%%=v(@loc1)=%%
+                                                                                </td>
+                                                                                <td style="font-family: 'ClanPro-Book','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 22px; line-height: 26px; padding-top:0px; color:#000000;" valign="top">&nbsp;</td>
+                                                                              </tr>
+
+
+                                                                              <tr>
+                                                                                <td width="3" bgcolor="#ffffff" style="font-size:1; line-height:1; background-color:#ffffff" valign="top"><img src="https://uber-static.s3.amazonaws.com/emails/2015/11/rider_drip/dotb1.gif" style="display:block;" width="3" height="18"></td>
+                                                                                <td width="2" bgcolor="#ffffff" style="font-size:1; line-height:1; background-color:#ffffff;" valign="top"><img src="https://uber-static.s3.amazonaws.com/emails/2015/11/rider_drip/dotb2.gif" style="display:block;" width="2" height="18"></td>
+                                                                                <td width="3" bgcolor="#ffffff" style="font-size:1; line-height:1; background-color:#ffffff;" valign="top"><img src="https://uber-static.s3.amazonaws.com/emails/2015/11/rider_drip/dotb3.gif" style="display:block;" width="3" height="18"></td>
+                                                                                <td  style="font-family: 'ClanPro-Book','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 16px; line-height: 22px; padding: 0 10px 0px; color:#000000; text-align:left;" valign="top">%%=v(@loc2)=%%
+                                                                                </td>
+                                                                                <td style="font-family: 'ClanPro-Book','Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 16px; line-height: 22px; padding-top:0px; color:#000000; text-align:left;" valign="top">
+
+                                                                                  %%=v(@fare1)=%%
+                                                                                </td>
+                                                                              </tr>
+                                                                            </table>
+                                                                            <!-- END city 1-2 Table -->
+
+                                                                        </td>
+                                                                      </tr>
+
+
+
+
+
+
+
+
+
+
+                                                                      
+
+
+
+                                                                      <tr>
+                                                                        <td style="padding-top:26px; font-family: 'Helvetica Neue', 'Helvetica Neue Light', Helvetica, Arial, 'Lucida Grande', sans-serif; font-size: 16px; line-height: 22px; color:#666666; text-align:left;" class="tcenter">需要马上搭乘？ 在 Uber 应用中，选择上车地点并输入目的地，点击产品类型，获取费用估算
+ </td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                        <td style="padding-top:30px; padding-bottom:50px;  text-align:left;" class="tcenter">
+                                                                            <!-- CTA -->
+                                                                            <div><!--[if mso]>
+                                                                              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:45px;v-text-anchor:middle;width:210px;" arcsize="14%" strokecolor="#1fbad6" fillcolor="#1fbad6">
+                                                                                <w:anchorlock/>
+                                                                                <center style="color:#ffffff;font-family: 'ClanPro-Book', HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Regular', Arial, sans-serif;font-size:13px;font-weight:bold; text-transformation:uppercase;">GET A FARE ESTIMATE</center>
+                                                                              </v:roundrect>
+                                                                            <![endif]--><a href="%%=REDIRECTTO(@citylink)=%%"
+                                                                            style="background-color:#1fbad6;border:1px solid #1fbad6;border-radius:4px;color:#ffffff;display:inline-block;font-family: 'ClanPro-Book', HelveticaNeue-Light, 'Helvetica Neue Light', 'Helvetica Regular', Arial, sans-serif;font-size:15px;font-weight:bold;line-height:45px;text-align:center;text-decoration:none;width:210px;-webkit-text-size-adjust:none;mso-hide:all; text-transform: uppercase;">获取费用估算</a></div>
+                                                                            <!-- END CTA -->
+                                                                        </td>
+                                                                      </tr>
+                                                                    </table>
+                                                                </td>
+                                                              </tr>
+                                                            </table>
+                                                          </div><!--[if (gte mso 9)|(IE)]>
+                                                          </td>
+                                                          <td width="286">
+                                                          <![endif]--><div style="max-width:286px; display: inline-block; vertical-align: top; padding:0; margin:0; ">
+                                                            <table cellpadding="0" cellspacing="0" border="0" align="left">
+                                                              <tr><td align="left" style="padding-left:23px; padding-right:23px;"><img src="https://image.et.uber.com/lib/fe93127371650c7f71/m/1/PriceAnnimation_%%=v(@city_id)=%%.gif" width="450" height="" height="600" border="0" style="display: block; width: 100%; height: auto; max-width: 450px; max-height: 600px;" /></td></tr>
+                                                            </table>
+                                                          </div>
+                                                          <!--[if (gte mso 9)|(IE)]>
+                                                          </td>
+                                                          </tr>
+                                                          </table>
+                                                          <![endif]-->
+                                                        </td>
+                                                      </tr>
+                                                    </table>
+                                            <!-- END body module -->
+                                            </td>
+                                          </tr>
+                                        </table>
+                                        <!-- END secondary -->
+
+
+
+                                          <!--END  MODULES -->
+                                  </td>
+                              </tr>
+                          </table>
+                          <!--END text content -->
+                      </td>
+                  </tr>
+                  <!--END body -->
+
+                  <!-- footer V2 -->
+                  <tr>
+                    <td style="background-color:#222231; text-align: left; vertical-align: top; padding:25px 20px;" align="center">
+                        <!--[if (gte mso 9)|(IE)]>
+                        <table width="700" align="center" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                        <td width="700">
+                        <![endif]-->
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" style="max-width:700px;">
+                          <tr>
+                            <td style="line-height:0;" >
+                                 <table width="320" cellpadding="0" cellspacing="0" border="0" align="left" class="ftr_left">
+                                  <tr>
+                                    <td style="font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height:20px; color:#c0c0c8; padding:0 10px; padding:0 0 0 20px;" class="fcenter">Uber International BV,<br>
+                                    <span class="appleFooter">Vijzelstraat 68-78, 1017 HL Amsterdam</span>
+                                    </td>
+                                  </tr>
+                              </table>
+                                  <table cellpadding="0" cellspacing="0" border="0" align="left" class="ftr_hide"><tr><td height="0" width="60" style="font-size:1px; line-height:1px;">&nbsp;</td></tr></table>
+                                  <table width="320" cellpadding="0" cellspacing="0" border="0" align="left"  class="ftr_right">
+                                    <tr>
+                                      <td style="font-family:Helvetica,Arial,sans-serif; font-size:14px; line-height:20px; color:#c0c0c8; padding:0 10px; padding:0 20px;" class="fcenter">&nbsp;<br><a href="https://help.uber.com/" target="_blank" style="color:#c0c0c8;text-decoration:none;">获取帮助</a> &nbsp;&nbsp; | &nbsp;&nbsp;关注微博：&nbsp;<a href="%%=REDIRECTTO(@weibo_link)=%%" target="_blank" style="color:#c0c0c8;text-decoration:none;">%%=V(@weibo)=%%</a> 
+                                      </td>
+                                    </tr>
+                                  </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                        </tr>
+                        </table>
+                        <![endif]-->
+                    </td>
+                  </tr>  
+                  <!-- END footer V2 -->  
+              </table>
+  
+          </td>
+      </tr>
+  </table>
+
+<div style="display:none; margin:0 auto; font-size:1px; color:#151525;"> %%Member_Busname%% 
+%%Member_Addr%% %%Member_City%%, %%Member_State%%, %%Member_PostalCode%%, %%Member_Country%%</div>
+<custom name="opencounter" type="tracking">
+</body>    
+</html>
